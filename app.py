@@ -1,15 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from pymongo import MongoClient
-import csv
+from dotenv import load_dotenv # Importa la función de carga
 import os
+
+load_dotenv()
+
+MONGO_URI = os.environ.get('MONGO_URI') 
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://localhost:27017/') 
 DATABASE_NAME = "encuesta_db" # Puedes nombrar tu base de datos como quieras
 COLLECTION_NAME = "respuestas_lectura" # Tu "tabla" o colección para las respuestas
 
 client = MongoClient(MONGO_URI)
-db = client[DATABASE_NAME]
-collection = db[COLLECTION_NAME]
+DATABASE_NAME = "encuesta_db" 
+collection = client[DATABASE_NAME]["respuestas_lectura"]
 
 app = Flask(__name__)
 # ¡IMPORTANTE! Necesitas una clave secreta para usar sesiones
