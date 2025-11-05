@@ -1,11 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+from pymongo import MongoClient
 import csv
 import os
+
+MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://localhost:27017/') 
+DATABASE_NAME = "encuesta_db" # Puedes nombrar tu base de datos como quieras
+COLLECTION_NAME = "respuestas_lectura" # Tu "tabla" o colección para las respuestas
+
+client = MongoClient(MONGO_URI)
+db = client[DATABASE_NAME]
+collection = db[COLLECTION_NAME]
 
 app = Flask(__name__)
 # ¡IMPORTANTE! Necesitas una clave secreta para usar sesiones
 app.secret_key = os.environ.get('SECRET_KEY', 'default_fallback_key_usar_solo_dev') 
-CSV_FILE = 'respuestas.csv'
 
 # Datos estáticos del formulario (Carreras, etc.)
 CARRERAS = [
@@ -144,26 +152,37 @@ def fin_encuesta():
 
 # Función de guardado centralizado
 def guardar_respuestas(respuestas):
-    """Escribe los datos de la sesión en el archivo CSV."""
+    """Inserta los datos de la sesión en la colección de MongoDB."""
     
-    # Creamos un diccionario con todos los campos, usando None si no existen
-    data_to_save = {key: respuestas.get(key) for key in FIELDNAMES}
+    # Creamos un diccionario con todos los datos de la sesión
+    # En MongoDB, no es estrictamente necesario incluir todos los FIELDNAMES,
+    # ya que MongoDB solo guarda los campos que realmente existen,
+    # lo que lo hace perfecto para formularios con ramificaciones.
     
-    file_exists = os.path.exists(CSV_FILE)
-    
-    with open(CSV_FILE, 'a', newline='', encoding='utf-8') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=FIELDNAMES, delimiter=';') # Usamos ';' para evitar conflictos con comas en los comentarios
-        
-        if not file_exists:
-            writer.writeheader()
+    # Convertimos la session proxy (que es un diccionario) a un diccionario estándar
+    # para asegurar que los datos son compatibles con PyMongo.
+    data_to_save = dict(respuestas)
+
+    # Opcional: Limpieza o conversión de tipos antes de guardar
+    if data_to_save.get('edad'):
+        try:
+            data_to_save['edad'] = int(data_to_save['edad'])
+        except ValueError:
+            pass # Si no es un número, lo dejamos como está o lo ignoramos
             
-        writer.writerow(data_to_save)
+    # Añadimos una marca de tiempo para el análisis
+    import datetime
+    data_to_save['fecha_registro'] = datetime.datetime.now()
+    
+    try:
+        # Insertamos el documento en la colección
+        collection.insert_one(data_to_save)
+        print("Respuesta guardada exitosamente en MongoDB.")
+    except Exception as e:
+        print(f"Error al guardar en MongoDB: {e}")
+        # En una aplicación real, deberías manejar este error para notificar al usuario.
 
 if __name__ == '__main__':
     # Inicializa el CSV con encabezados si no existe
-    if not os.path.exists(CSV_FILE):
-        with open(CSV_FILE, 'w', newline='', encoding='utf-8') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=FIELDNAMES, delimiter=';')
-            writer.writeheader()
             
     app.run(debug=True)
