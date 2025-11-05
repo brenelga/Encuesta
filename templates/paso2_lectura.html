@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encuesta - Bifurcación de Lectura</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Paso 2: Inicio de Hábitos de Lectura</h1>
+    <form method="POST" action="/paso2">
+        
+        <h2>🤔 Pregunta Clave (Bifurcación)</h2>
+
+        <p>En los últimos **12 meses**, ¿ha leído al menos un libro (completo o incompleto) en cualquier formato (físico, electrónico o audiolibro)?</p>
+        
+        <input type="radio" name="ha_leido_12m" value="Sí" required> Sí<br>
+        <input type="radio" name="ha_leido_12m" value="No"> No<br><br>
+        
+        <input type="submit" value="Continuar">
+    </form>
+</body>
+</html>

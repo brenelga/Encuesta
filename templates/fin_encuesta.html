@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encuesta - ¡Gracias!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ddd;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #4CAF50; /* Color verde */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Encuesta Finalizada! 🎉</h1>
+        
+        <h2>Muchas gracias por su valiosa participación.</h2>
+        
+        <p>Sus respuestas han sido guardadas con éxito y contribuirán de manera significativa a nuestro estudio sobre los hábitos de lectura en la comunidad.</p>
+        
+        {% if session.get('quiere_resultados') == 'Sí, por favor' %}
+        <p>Le hemos enviado un correo electrónico de confirmación (a la dirección que nos proporcionó) y recibirá los resultados del proyecto una vez que el análisis esté completo. Por favor, revise su bandeja de entrada.</p>
+        {% endif %}
+
+        <p>Si tiene alguna pregunta, puede contactarnos en brenel1707.2017.cb8@gmail.com.</p>
+        
+        <p style="margin-top: 30px;">¡Que tenga un excelente día!</p>
+    </div>
+</body>
+</html>

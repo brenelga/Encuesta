@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encuesta - Razón de No Lectura</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Paso 4: Razón de No Lectura</h1>
+    <form method="POST" action="/paso4">
+        
+        <h2>❓ Sección V: Razón Principal de No Lectura</h2>
+
+        <p>¿Cuál es la razón principal por la que no ha leído en los últimos 12 meses?</p>
+        
+        <input type="radio" name="razon" value="Falta de tiempo" required> Falta de tiempo<br>
+        <input type="radio" name="razon" value="Falta de interés"> Falta de interés<br>
+        <input type="radio" name="razon" value="Prefiero otros pasatiempos"> Prefiero otros pasatiempos<br>
+        <input type="radio" name="razon" value="Por el costo de los libros"> Por el costo de los libros<br>
+        <input type="radio" name="razon" value="Otros"> Otros:<br><br>
+        
+        <input type="submit" value="Continuar a Comentarios Finales">
+    </form>
+</body>
+</html>

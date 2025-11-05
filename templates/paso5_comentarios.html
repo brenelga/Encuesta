@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encuesta - Comentarios y Finalización</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Paso 5: Comentarios y Solicitud de Resultados</h1>
+    <form method="POST" action="/paso5">
+        
+        <h2>💬 Sección VI: Comentarios Adicionales</h2>
+        <label for="comentario_adicional">Si tienes algún comentario adicional, por favor escríbelo aquí:</label><br>
+        <textarea id="comentario_adicional" name="comentario_adicional" rows="4" cols="50"></textarea><br><br>
+
+        <hr>
+
+        <h2>📬 Sección VII: Enlace a Resultados</h2>
+        
+        <label>¿Te gustaría recibir un enlace con los resultados visuales de esta encuesta una vez que el análisis esté completo?</label><br>
+        
+        <input type="radio" name="quiere_resultados" value="Sí, por favor" id="si_resultados" required onclick="mostrarEmail()"> Sí, por favor<br>
+        <input type="radio" name="quiere_resultados" value="No, gracias" id="no_resultados" onclick="ocultarEmail()"> No, gracias<br><br>
+
+        <div id="email_container" style="display:none;">
+            <p>Gracias por el interés en el proyecto. Por favor, escribe tu correo electrónico a continuación:</p>
+            <label for="email_resultados">Correo Electrónico:</label>
+            <input type="email" id="email_resultados" name="email_resultados">
+            
+            <p style="font-size: smaller; color: gray;">
+                **Aviso de privacidad:** Tu correo se usará exclusivamente para enviarte el enlace a los 
+                resultados y no se asociará con tus respuestas ni se compartirá con terceros.
+            </p>
+        </div>
+
+        <input type="submit" value="Finalizar Encuesta">
+    </form>
+    
+    <script>
+        // Función JavaScript para mostrar el campo de email
+        function mostrarEmail() {
+            document.getElementById('email_container').style.display = 'block';
+            document.getElementById('email_resultados').setAttribute('required', 'required');
+        }
+
+        // Función JavaScript para ocultar el campo de email
+        function ocultarEmail() {
+            document.getElementById('email_container').style.display = 'none';
+            // Quitamos el requisito si lo ocultamos para que el formulario se pueda enviar
+            document.getElementById('email_resultados').removeAttribute('required');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encuesta - Hábitos y Preferencias</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Paso 3: Hábitos y Preferencias de Lectura</h1>
+    <form method="POST" action="/paso3">
+        
+        <h2>📚 Sección III: Hábitos de Lectura</h2>
+        
+        <label for="libros_leidos">¿Cuántos libros ha leído en los últimos 12 meses? (1 a 100)</label><br>
+        <input type="number" id="libros_leidos" name="libros_leidos" min="1" max="100" required><br><br>
+
+        <label for="fisico">¿Cuántos han sido en formato físico?</label><br>
+        <input type="number" id="fisico" name="fisico" min="0" required><br><br>
+
+        <label for="ebook">¿E-book?</label><br>
+        <input type="number" id="ebook" name="ebook" min="0" required><br><br>
+
+        <label for="audiolibro">¿Audiolibro?</label><br>
+        <input type="number" id="audiolibro" name="audiolibro" min="0" required><br><br>
+
+        <label>¿Cuánto tiempo dedica a leer a la semana?</label><br>
+        <input type="radio" name="tiempo_semanal" value="0 a 30 min" required> 0 a 30 min<br>
+        <input type="radio" name="tiempo_semanal" value="Entre 30 y 60 min"> Entre 30 y 60 min<br>
+        <input type="radio" name="tiempo_semanal" value="Entre 1 y 2 h"> Entre 1 y 2 h<br>
+        <input type="radio" name="tiempo_semanal" value="+2h"> +2h<br><br>
+
+        <hr>
+
+        <h2>⭐ Sección IV: Preferencias de Lectura</h2>
+
+        <label for="tipo_principal">¿Qué tipos de libros lee **principalmente**?</label><br>
+        <select id="tipo_principal" name="tipo_principal" required>
+            <option value="">Selecciona una opción</option>
+            <option value="Novelas (Ficción Literaria)">Novelas (Ficción Literaria)</option>
+            <option value="Libros Técnicos / Académicos">Libros Técnicos / Académicos</option>
+            <option value="Novelas Gráficas">Novelas Gráficas (Incluye Cómic y Manga)</option>
+            <option value="Poesía">Poesía</option>
+            <option value="No ficción">No ficción (Biografías, Ensayos, Historia)</option>
+            <option value="Otros">Otros</option>
+        </select><br><br>
+
+        <label>Géneros Literarios (Selecciona todos los que apliquen):</label>
+        <p style="font-size: smaller; color: gray;">*(En el código Python, estos se guardarán juntos como una lista)*</p>
+        
+        <input type="checkbox" name="generos_literarios" value="Ciencia Ficción"> Ciencia Ficción<br>
+        <input type="checkbox" name="generos_literarios" value="Fantasía"> Fantasía<br>
+        <input type="checkbox" name="generos_literarios" value="Romance"> Romance<br>
+        <input type="checkbox" name="generos_literarios" value="Drama"> Drama<br>
+        <input type="checkbox" name="generos_literarios" value="Misterio / Thriller"> Misterio / Thriller<br>
+        <input type="checkbox" name="generos_literarios" value="Terror"> Terror<br>
+        <input type="checkbox" name="generos_literarios" value="Histórico"> Histórico<br>
+        <input type="checkbox" name="generos_literarios" value="Divulgación Científica"> Divulgación Científica<br>
+        <input type="checkbox" name="generos_literarios" value="Otros"> Otros:<br>
+        <input type="submit" value="Continuar a Comentarios">
+    </form>
+</body>
+</html>

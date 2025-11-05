@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encuesta - Datos Estadísticos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h2>Sección I: Datos Estadísticos</h2>
+<form method="POST" action="/paso1">
+    
+    <label>Género:</label><br>
+    <input type="radio" name="genero" value="H" required> Hombre
+    <input type="radio" name="genero" value="M"> Mujer
+    <input type="radio" name="genero" value="Otro"> Otro
+    <input type="radio" name="genero" value="Prefiero no responder"> Prefiero no responder
+    <br><br>
+
+    <label for="edad">Edad (10-100):</label><br>
+    <input type="number" id="edad" name="edad" min="10" max="100" required><br><br>
+
+    <label for="municipio">Municipio:</label><br>
+    <select id="municipio" name="municipio" required>
+        {% for muni in municipios %}
+            <option value="{{ muni }}">{{ muni }}</option>
+        {% endfor %}
+    </select><br><br>
+    
+    <label for="carrera">Carrera:</label><br>
+    <select id="carrera" name="carrera" required>
+        {% for carrera in carreras %}
+            <option value="{{ carrera }}">{{ carrera }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <input type="submit" value="Siguiente">
+</form>
+</body>
+</html>
