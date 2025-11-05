@@ -153,4 +153,4 @@ widgetsnbextension==4.0.14
 wrapt==2.0.0
 xyzservices==2025.10.0
 yfinance==0.2.61
-dotenv==1.2.1
+dotenv==1.0.0
